@@ -76,25 +76,25 @@ repository:
               name: "constant.numeric.id.spwn"
 
             - comment: "Hexadecimal literal"
-              match: "\\b(0x)([0-9a-fA-F]+)\\b"
+              match: "\\b(0x)([0-9a-fA-F][0-9a-fA-F_]+)\\b"
               captures:
                   "1": { name: storage.type.number.spwn }
                   "2": { name: constant.numeric.hex.spwn }
 
             - comment: "Octal literal"
-              match: "\\b(0o)([0-7]+)\\b"
+              match: "\\b(0o)([0-7][0-7_]+)\\b"
               captures:
                   "1": { name: storage.type.number.spwn }
                   "2": { name: constant.numeric.oct.spwn }
 
             - comment: "Binary literal"
-              match: "\\b(0b)([01]+)\\b"
+              match: "\\b(0b)([01][01_]+)\\b"
               captures:
                   "1": { name: storage.type.number.spwn }
                   "2": { name: constant.numeric.bin.spwn }
 
             - comment: "Integer literal"
-              match: "\\b(\\d+)\\b"
+              match: "\\b([\\d][\\d_]+)\\b"
               name: "constant.numeric.dec.spwn"
 
     keywords:
