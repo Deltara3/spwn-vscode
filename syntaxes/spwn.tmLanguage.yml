@@ -1,13 +1,16 @@
 $schema: https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
 name: SPWN
+
 patterns:
     - include: "#root"
+
 repository:
     root:
         patterns:
             - include: "#comments"
             - include: "#strings"
             - include: "#numbers"
+
     comments:
         patterns:
             - comment: Block comments
@@ -16,12 +19,14 @@ repository:
               captures:
                   "1": { name: punctuation.definition.comment.spwn }
               name: comment.block.spwn
+              
             - comment: Line comments
               begin: //
               beginCaptures:
                   "1": { name: punctuation.definition.comment.spwn }
               end: $
               name: "comment.line.spwn"
+
     strings:
         patterns:
             - comment: "Prefixed string"
@@ -34,6 +39,7 @@ repository:
                   "1": { name: punctuation.definition.string.end.spwn }
                   "2": { name: invalid.illegal.unclosed-string.spwn }
               name: string.quoted.raw.spwn
+
             - comment: "String"
               begin: "(['\"])"
               beginCaptures:
@@ -51,21 +57,25 @@ repository:
                   "1": { name: constant.numeric.id.spwn }
                   "2": { name: storage.type.number.spwn }
               name: "constant.numeric.id.spwn"
+
             - comment: "Hexadecimal literal"
               match: "\\b(0x)([0-9a-fA-F]+)\\b"
               captures:
                   "1": { name: storage.type.number.spwn }
                   "2": { name: constant.numeric.hex.spwn }
+
             - comment: "Octal literal"
               match: "\\b(0o)([0-7]+)\\b"
               captures:
                   "1": { name: storage.type.number.spwn }
                   "2": { name: constant.numeric.oct.spwn }
+
             - comment: "Binary literal"
               match: "\\b(0b)([01]+)\\b"
               captures:
                   "1": { name: storage.type.number.spwn }
                   "2": { name: constant.numeric.bin.spwn }
+
             - comment: "Integer literal"
               match: "\\b(\\d+)\\b"
               name: "constant.numeric.dec.spwn"
