@@ -6,17 +6,68 @@ repository:
     root:
         patterns:
             - include: "#comments"
+            - include: "#strings"
+            - include: "#numbers"
     comments:
         patterns:
-            - begin: /\*
+            - comment: Block comments
+              begin: /\*
               end: \*/
               captures:
                   "1": { name: punctuation.definition.comment.spwn }
               name: comment.block.spwn
-            - begin: //
+            - comment: Line comments
+              begin: //
               beginCaptures:
                   "1": { name: punctuation.definition.comment.spwn }
               end: $
               name: "comment.line.spwn"
+    strings:
+        patterns:
+            - comment: "Prefixed string"
+              begin: "\\b(r|u|64)(['\"])"
+              beginCaptures:
+                  "1": { name: storage.type.string.spwn }
+                  "2": { name: punctuation.definition.string.begin.spwn }
+              end: "(\\2)(\n)"
+              endCaptures:
+                  "1": { name: punctuation.definition.string.end.spwn }
+                  "2": { name: invalid.illegal.unclosed-string.spwn }
+              name: string.quoted.raw.spwn
+            - comment: "String"
+              begin: "(['\"])"
+              beginCaptures:
+                  "1": { name: punctuation.definition.string.begin.spwn }
+              end: "(\\1)|(\n)"
+              endCaptures:
+                  "1": { name: punctuation.definition.string.end.spwn }
+                  "2": { name: invalid.illegal.unclosed-string.spwn }
+              name: "string.quoted.spwn"
+    numbers:
+        patterns:
+            - comment: "Group, item, color, and block ID literals"
+              match: "(?<![a-zA-Z_])(\\d+|\\?)([gbic])\\b"
+              captures:
+                  "1": { name: constant.numeric.id.spwn }
+                  "2": { name: storage.type.number.spwn }
+              name: "constant.numeric.id.spwn"
+            - comment: "Hexadecimal literal"
+              match: "\\b(0x)([0-9a-fA-F]+)\\b"
+              captures:
+                  "1": { name: storage.type.number.spwn }
+                  "2": { name: constant.numeric.hex.spwn }
+            - comment: "Octal literal"
+              match: "\\b(0o)([0-7]+)\\b"
+              captures:
+                  "1": { name: storage.type.number.spwn }
+                  "2": { name: constant.numeric.oct.spwn }
+            - comment: "Binary literal"
+              match: "\\b(0b)([01]+)\\b"
+              captures:
+                  "1": { name: storage.type.number.spwn }
+                  "2": { name: constant.numeric.bin.spwn }
+            - comment: "Integer literal"
+              match: "\\b(\\d+)\\b"
+              name: "constant.numeric.dec.spwn"
 
 scopeName: source.spwn
