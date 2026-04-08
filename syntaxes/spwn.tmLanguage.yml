@@ -1,0 +1,22 @@
+$schema: https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
+name: SPWN
+patterns:
+    - include: "#root"
+repository:
+    root:
+        patterns:
+            - include: "#comments"
+    comments:
+        patterns:
+            - begin: /\*
+              end: \*/
+              captures:
+                  "1": { name: punctuation.definition.comment.spwn }
+              name: comment.block.spwn
+            - begin: //
+              beginCaptures:
+                  "1": { name: punctuation.definition.comment.spwn }
+              end: $
+              name: "comment.line.spwn"
+
+scopeName: source.spwn
