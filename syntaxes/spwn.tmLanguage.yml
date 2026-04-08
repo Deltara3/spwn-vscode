@@ -54,7 +54,7 @@ repository:
               endCaptures:
                   "1": { name: punctuation.definition.string.end.spwn }
                   "2": { name: invalid.illegal.unclosed-string.spwn }
-              name: string.quoted.raw.spwn
+              name: string.quoted.spwn
 
             - comment: "String"
               begin: "(['\"])"
@@ -65,6 +65,18 @@ repository:
                   "1": { name: punctuation.definition.string.end.spwn }
                   "2": { name: invalid.illegal.unclosed-string.spwn }
               name: "string.quoted.spwn"
+              patterns:
+                  - include: "#escapes"
+                  
+    escapes:
+        patterns:
+            - comment: "Escape sequences"
+              match: "\\\\([nrt'\"]|u\\{[0-9a-fA-F]{1,6}\\})"
+              name: "constant.character.escape.spwn"
+
+            - comment: "Illegal sequences"
+              match: "\\\\[^nrt'\"\\\\u]|\\\\u(?!\\{[0-9a-fA-F]{1,6}\\})"
+              name: "invalid.illegal.escape.spwn"
 
     numbers:
         patterns:
