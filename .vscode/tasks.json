@@ -5,6 +5,9 @@
             "label": "convert-grammar",
             "type": "shell",
             "command": "npm run convert-grammar",
+            "presentation": {
+                "reveal":  "silent"
+            },
             "problemMatcher": []
         }
     ]
