@@ -155,7 +155,7 @@ repository:
               name: "constant.language.spwn"
       
             - comment: "Control keywords"
-              match: "\\b(if|else|while|for|in|is|has|break|continue|match|switch|case|return)\\b"
+              match: "\\b(let|if|else|while|for|in|is|has|break|continue|match|switch|case|return)\\b"
               name: "keyword.control.spwn"
 
             - comment: "Error keywords"
