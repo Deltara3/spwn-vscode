@@ -24,7 +24,8 @@
         ["r\"", "\""],
         ["u\"", "\""],
         ["64\"", "\""],
-        ["'", "'"]
+        ["'", "'"],
+        ["\\u{", "}"]
     ],
     // symbols that can be used to surround a selection
     "surroundingPairs": [

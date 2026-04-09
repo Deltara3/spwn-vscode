@@ -1,245 +1,245 @@
 # Based a bit on the original grammar.
-$schema: "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json"
-name: "SPWN"
+$schema: https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
+name: SPWN
 
 patterns:
-    - include: "#root"
+    - include: '#root'
 
 repository:
     root:
         patterns:
-            - include: "#comments"
-            - include: "#strings"
-            - include: "#numbers"
+            - include: '#comments'
+            - include: '#strings'
+            - include: '#numbers'
 
             # Builtin table constant.
-            - match: "\\$"
-              name: "constant.language.spwn"
+            - match: '\$'
+              name: constant.language.spwn
 
             # Type identifiers.
-            - match: "@[a-zA-Z_]\\w*"
-              name: "entity.name.type.spwn"
+            - match: '@[a-zA-Z_]\w*'
+              name: entity.name.type.spwn
 
             - include: "#properties"
 
             # Freestanding macro calls.
-            - match: "\\b[a-zA-Z_]\\w*(?=\\s*\\()"
-              name: "entity.name.function.spwn"
+            - match: \b[a-zA-Z_]\w*(?=\s*\()
+              name: entity.name.function.spwn
 
-            - include: "#namespace"
-            - include: "#keywords"
-            - include: "#operators"
+            - include: '#namespace'
+            - include: '#keywords'
+            - include: '#operators'
 
     comments:
         patterns:
             # Block comments.
-            - begin: "/\\*"
-              end: "\\*/"
+            - begin: /\*
+              end: \*/
               captures:
-                  "1": { name: "punctuation.definition.comment.spwn" }
-              name: "comment.block.spwn"
+                  1: { name: punctuation.definition.comment.spwn }
+              name: comment.block.spwn
 
             # Single line comments.
-            - begin: "//"
+            - begin: //
               beginCaptures:
-                  "1": { name: "punctuation.definition.comment.spwn" }
-              end: "$"
-              name: "comment.line.spwn"
+                  1: { name: punctuation.definition.comment.spwn }
+              end: '$'
+              name: comment.line.spwn
 
     properties:
         patterns:
             # Type property access.
-            - match: "(?<=\\.)(?<!\\.{2})\\b(type)\\b"
-              name: "storage.type.spwn"
+            - match: (?<=\.)(?<!\.{2})\b(type)\b
+              name: storage.type.spwn
 
-            - include: "#overloads"
+            - include: '#overloads'
 
             # Method calls.
-            - match: "(?<=\\.)(?<!\\.{2})[a-zA-Z_]\\w*(?=\\s*\\()"
-              name: "entity.name.function.spwn"
+            - match: (?<=\.)(?<!\.{2})[a-zA-Z_]\w*(?=\s*\()
+              name: entity.name.function.spwn
 
             # Generic properties.
-            - match: "(?<=\\.)(?<!\\.{2})[a-zA-Z_]\\w*"
-              name: "variable.property.spwn"
+            - match: (?<=\.)(?<!\.{2})[a-zA-Z_]\w*
+              name: variable.property.spwn
 
     strings:
         patterns:
             # Prefixed strings.
-            - begin: "\\b(r|u|64)(['\"])"
+            - begin: \b(r|u|64)(['"])
               beginCaptures:
-                  "1": { name: "storage.type.string.spwn" }
-                  "2": { name: "punctuation.definition.string.begin.spwn" }
-              end: "(\\2)|(\n)"
+                  1: { name: storage.type.string.spwn }
+                  2: { name: punctuation.definition.string.begin.spwn }
+              end: (\2)|(\n)
               endCaptures:
-                  "1": { name: "punctuation.definition.string.end.spwn" }
-                  "2": { name: "invalid.illegal.unclosed-string.spwn" }
-              name: "string.quoted.spwn"
+                  1: { name: punctuation.definition.string.end.spwn }
+                  2: { name: invalid.illegal.unclosed-string.spwn }
+              name: string.quoted.spwn
 
             # Unprefixed strings.
-            - begin: "(['\"])"
+            - begin: (['"])
               beginCaptures:
-                  "1": { name: "punctuation.definition.string.begin.spwn" }
-              end: "(\\1)|(\n)"
+                  1: { name: punctuation.definition.string.begin.spwn }
+              end: (\1)|(\n)
               endCaptures:
-                  "1": { name: "punctuation.definition.string.end.spwn" }
-                  "2": { name: "invalid.illegal.unclosed-string.spwn" }
-              name: "string.quoted.spwn"
+                  1: { name: punctuation.definition.string.end.spwn }
+                  2: { name: invalid.illegal.unclosed-string.spwn }
+              name: string.quoted.spwn
               patterns:
-                  - include: "#escapes"
+                  - include: '#escapes'
 
     escapes:
         patterns:
             # Escape sequences.
-            - match: "\\\\([nrt'\"]|u\\{[0-9a-fA-F]{1,6}\\})"
-              name: "constant.character.escape.spwn"
+            - match: \\([nrt'"]|u\{[0-9a-fA-F]{1,6}\})
+              name: constant.character.escape.spwn
 
             # Illegal sequences.
-            - match: "\\\\[^nrt'\"\\\\u]|\\\\u(?!\\{[0-9a-fA-F]{1,6}\\})"
-              name: "invalid.illegal.escape.spwn"
+            - match: \\[^nrt'"\\u]|\\u(?!\{[0-9a-fA-F]{1,6}\})
+              name: invalid.illegal.escape.spwn
 
     numbers:
         patterns:
             # Geometry Dash ID literals.
-            - match: "(?<![a-zA-Z_])(\\d+|\\?)([gbic])\\b"
+            - match: (?<![a-zA-Z_])(\d+|\?)([gbic])\b
               captures:
-                  "1": { name: "constant.numeric.id.spwn" }
-                  "2": { name: "storage.type.number.spwn" }
-              name: "constant.numeric.id.spwn"
+                  1: { name: constant.numeric.id.spwn }
+                  2: { name: storage.type.number.spwn }
+              name: constant.numeric.id.spwn
 
             # Hexadecimal number literals.
-            - match: "\\b(0x)([0-9a-fA-F][0-9a-fA-F_]+)\\b"
+            - match: \b(0x)([0-9a-fA-F][0-9a-fA-F_]+)\b
               captures:
-                  "1": { name: "storage.type.number.spwn" }
-                  "2": { name: "constant.numeric.hex.spwn" }
+                  1: { name: storage.type.number.spwn }
+                  2: { name: constant.numeric.hex.spwn }
 
             # Octal number literals.
-            - match: "\\b(0o)([0-7][0-7_]+)\\b"
+            - match: \b(0o)([0-7][0-7_]+)\b
               captures:
-                  "1": { name: "storage.type.number.spwn" }
-                  "2": { name: "constant.numeric.oct.spwn" }
+                  1: { name: storage.type.number.spwn }
+                  2: { name: constant.numeric.oct.spwn }
 
             # Binary number literals.
-            - match: "\\b(0b)([01][01_]+)\\b"
+            - match: \b(0b)([01][01_]+)\b
               captures:
-                  "1": { name: "storage.type.number.spwn" }
-                  "2": { name: "constant.numeric.bin.spwn" }
+                  1: { name: storage.type.number.spwn }
+                  2: { name: constant.numeric.bin.spwn }
 
             # Number literals.
-            - match: "\\b(\\d[\\d_]*)\\b"
-              name: "constant.numeric.dec.spwn"
+            - match: \b(\d[\d_]*)\b
+              name: constant.numeric.dec.spwn
 
     namespace:
         patterns:
             # Namespace segments.
-            - match: "(::)([a-zA-Z_]\\w*)(?=::)"
+            - match: (::)([a-zA-Z_]\w*)(?=::)
               captures:
-                  "1": { name: "punctuation.accessor.spwn" }
-                  "2": { name: "entity.name.namespace.spwn" }
+                  1: { name: punctuation.accessor.spwn }
+                  2: { name: entity.name.namespace.spwn }
 
             # Namespace function calls.
-            - match: "(::)([a-zA-Z_]\\w*)(?=\\s*\\()"
+            - match: (::)([a-zA-Z_]\w*)(?=\s*\()
               captures:
-                  "1": { name: "punctuation.accessor.spwn" }
-                  "2": { name: "entity.name.function.spwn" }
+                  1: { name: punctuation.accessor.spwn }
+                  2: { name: entity.name.function.spwn }
 
             # Namespace member access.
             - match: "(::)([a-zA-Z_]\\w*)"
               captures:
-                  "1": { name: "punctuation.accessor.spwn" }
-                  "2": { name: "variable.property.spwn" }
+                  1: { name: punctuation.accessor.spwn }
+                  2: { name: variable.property.spwn }
 
     keywords:
         patterns:
             # Constants.
-            - match: "\\b(true|false|null|self)\\b"
-              name: "constant.language.spwn"
+            - match: \b(true|false|null|self)\b
+              name: constant.language.spwn
       
             # Control flow.
-            - match: "\\b(let|if|else|while|for|in|is|has|break|continue|match|switch|case|return)\\b"
-              name: "keyword.control.spwn"
+            - match: \b(let|if|else|while|for|in|is|has|break|continue|match|switch|case|return)\b
+              name: keyword.control.spwn
 
             # Error handling.
-            - match: "\\b(throw|error)\\b"
-              name: "keyword.control.exception.spwn"
+            - match: \b(throw|error)\b
+              name: keyword.control.exception.spwn
 
             # Type implementation.
-            - match: "\\b(impl|type|obj|trigger)\\b"
-              name: "storage.type.spwn"
+            - match: \b(impl|type|obj|trigger)\b
+              name: storage.type.spwn
 
             # Library handling.
-            - match: "\\b(import|extract)\\b"
-              name: "keyword.control.import.spwn"
+            - match: \b(import|extract)\b
+              name: keyword.control.import.spwn
 
             # Reserved.
-            - match: "\\b(sync)\\b"
-              name: "keyword.other.spwn"
+            - match: \b(sync)\b
+              name: keyword.other.spwn
 
     operators:
         patterns:
             # Return operator.
-            - match: "->"
-              name: "keyword.operator.relational.spwn"
+            - match: ->
+              name: keyword.operator.relational.spwn
 
             # Lambda operator.
-            - match: "=>"
-              name: "storage.type.function.arrow.spwn"
+            - match: =>
+              name: storage.type.function.arrow.spwn
             
             # Swap operator.
-            - match: "<=>"
-              name: "keyword.operator.assignment.spwn"
+            - match: <=>
+              name: keyword.operator.assignment.spwn
 
             # Increment operator.
-            - match: "\\+\\+"
-              name: "keyword.operator.increment.spwn"
+            - match: \+\+
+              name: keyword.operator.increment.spwn
 
             # Decrement operator.
-            - match: "\\-\\-"
-              name: "keyword.operator.decrement.spwn"
+            - match: \-\-
+              name: keyword.operator.decrement.spwn
 
             # Comparison operators.
-            - match: "(==|!=|>=|<=|>|<)"
-              name: "keyword.operator.comparison.spwn"
+            - match: (==|!=|>=|<=|>|<)
+              name: keyword.operator.comparison.spwn
             
             # Logical operators.
-            - match: "(\\|\\||&&|!)"
-              name: "keyword.operator.logical.spwn"
+            - match: (\|\||&&|!)
+              name: keyword.operator.logical.spwn
 
             # Assignment operators.
-            - match: "(=|\\+=|\\-=|\\*=|\\/=|\\^=|%=|\\/%=)"
-              name: "keyword.operator.assignment.spwn"
+            - match: (=|\+=|\-=|\*=|\/=|\^=|%=|\/%=)
+              name: keyword.operator.assignment.spwn
 
             # Arithmetic operators.
-            - match: "(\\+|\\-|\\*\\*|\\*|\\/%|\\/|\\^|%|\\|)"
-              name: "keyword.operator.arithmetic.spwn"
+            - match: (\+|\-|\*\*|\*|\/%|\/|\^|%|\|)
+              name: keyword.operator.arithmetic.spwn
             
             # Range operator.
-            - match: "\\.\\."
-              name: "keyword.operator.range.spwn"
+            - match: \.\.
+              name: keyword.operator.range.spwn
             
             # Scope operator.
-            - match: "::"
-              name: "punctuation.accessor.spwn"
+            - match: '::'
+              name: punctuation.accessor.spwn
 
     overloads:
         patterns:
             # Comparison overloads.
-            - match: "\\b_(equal|not_equal|more_or_equal|less_or_equal|more_than|less_than)_\\b"
-              name: "support.function.magic.spwn"
+            - match: \b_(equal|not_equal|more_or_equal|less_or_equal|more_than|less_than)_\b
+              name: support.function.magic.spwn
 
             # Logical overloads.
-            - match: "\\b_(or|and|not|negate)_\\b"
-              name: "support.function.magic.spwn"
+            - match: \b_(or|and|not|negate)_\b
+              name: support.function.magic.spwn
 
             # Assignment overloads.
-            - match: "\\b_(assign|add|subtract|multiply|divide|exponate|modulate|intdivide|swap)_\\b"
-              name: "support.function.magic.spwn"
+            - match: \b_(assign|add|subtract|multiply|divide|exponate|modulate|intdivide|swap)_\b
+              name: support.function.magic.spwn
 
             # Arithmetic overloads.
-            - match: "\\b_(plus|minus|times|intdivided_by|divided_by|pow|mod|either|increment|pre_increment|decrement|pre_decrement)_\\b"
-              name: "support.function.magic.spwn"
+            - match: \b_(plus|minus|times|intdivided_by|divided_by|pow|mod|either|increment|pre_increment|decrement|pre_decrement)_\b
+              name: support.function.magic.spwn
 
             # Other overloads.
-            - match: "\\b_(display|as|has|range|unary_range)_\\b"
-              name: "support.function.magic.spwn"
+            - match: \b_(display|as|has|range|unary_range)_\b
+              name: support.function.magic.spwn
 
-scopeName: "source.spwn"
+scopeName: source.spwn
