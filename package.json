@@ -32,8 +32,8 @@
         ]
     },
     "scripts": {
-        "convert-grammar": "npx js-yaml syntaxes/spwn.tmLanguage.yml > syntaxes/spwn.tmLanguage.json",
-        "vscode:prepublish": "npm run convert-grammar"
+        "build-grammar": "node build.js",
+        "vscode:prepublish": "npm run build-grammar"
     },
     "devDependencies": {
         "js-yaml": "^4.1.1"

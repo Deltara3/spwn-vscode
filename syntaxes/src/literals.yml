@@ -1,0 +1,74 @@
+scopeName: source.spwn
+
+patterns:
+    - include: '#null'
+
+repository:
+    literals:
+        patterns:
+          - include: '#string-literal'
+          - include: '#id-literal'
+          - include: '#number-literal'
+
+    string-literal:
+        patterns:
+            # Prefixed
+          - name: string.quoted.spwn
+            begin: \b(r|u|64)(['"])
+            beginCaptures:
+                1: { name: storage.type.string.spwn }
+                2: { name: punctuation.definition.string.begin.spwn }
+            end: (\2)|(\n)
+            endCaptures:
+                1: { name: punctuation.definition.string.end.spwn }
+                2: { name: invalid.illegal.unclosed-string.spwn }
+
+          - name: string.quoted.spwn
+            begin: (['"])
+            beginCaptures:
+                1: { name: punctuation.definition.string.begin.spwn }
+            end: (\1)|(\n)
+            endCaptures:
+                1: { name: punctuation.definition.string.end.spwn }
+                2: { name: invalid.illegal.unclosed-string.spwn }
+
+    escape-sequences:
+        patterns:
+            # Valid
+          - name: constant.character.escape.spwn
+            match: \\([nrt'"]|u\{[0-9a-fA-F]{1,6}\})
+        
+            # Invalid
+          - name: invalid.illegal.escape.spwn
+            match: \\[^nrt'"\\u]|\\u(?!\{[0-9a-fA-F]{1,6}\})
+
+    id-literal:
+        patterns:
+          - match: (?<![a-zA-Z_])(\d+|\?)([gbic])\b
+            captures:
+                1: { name: constant.numeric.id.spwn }
+                2: { name: storage.type.number.spwn }
+
+    number-literal:
+        patterns:
+            # Binary
+          - match: \b(0b)([01][01_]*)\b
+            captures:
+                1: { name: storage.type.number.spwn }
+                2: { name: constant.numeric.bin.spwn }
+
+            # Octal
+          - match: \b(0o)([0-7][0-7_]*)\b
+            captures:
+                1: { name: storage.type.number.spwn }
+                2: { name: constant.numeric.oct.spwn }
+
+            # Hexadecimal
+          - match: \b(0x)([0-9a-fA-F][0-9a-fA-F_]*)\b
+            captures:
+                1: { name: storage.type.number.spwn }
+                2: { name: constant.numeric.hex.spwn }
+
+            # Decimal
+          - match: \b(\d[\d_]*)\b
+            name: constant.numeric.dec.spwn

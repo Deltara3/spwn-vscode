@@ -1,0 +1,15 @@
+name: SPWN
+scopeName: source.spwn
+
+includes:
+  - comments
+  - literals
+
+patterns:
+  - include: '#root'
+
+repository:
+    root:
+        patterns:
+          - include: '#comments'
+          - include: '#literals'
