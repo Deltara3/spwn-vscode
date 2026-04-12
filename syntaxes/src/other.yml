@@ -21,7 +21,7 @@ repository:
           - name: punctuation.separator.key-value.spwn
             match: ':'
 
-    type-identifier:
+    types:
         patterns:
           - name: entity.name.type.spwn
-            match: '@[a-zA-Z_]\w*'
+            match: '@[a-zA-Z_]\w*|\?|\b_\b'

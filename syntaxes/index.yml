@@ -20,7 +20,7 @@ repository:
           - include: '#comments'
           - include: '#literals'
           - include: '#keywords'
-          - include: '#type-identifier'
+          - include: '#types'
           - include: '#property-access'
           - include: '#standalone-call'
           - include: '#namespace-access'

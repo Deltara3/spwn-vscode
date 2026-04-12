@@ -11,6 +11,7 @@ repository:
           - include: '#base64-literal'
           - include: '#string-literal'
           - include: '#id-literal'
+          - include: '#uid-literal'
           - include: '#binary-literal'
           - include: '#octal-literal'
           - include: '#hexadecimal-literal'
@@ -80,9 +81,16 @@ repository:
 
     id-literal:
         patterns:
-          - match: (?<![a-zA-Z_])(\d+|\?)([gbic])\b
+          - match: (?<![a-zA-Z_])(\d+)([gbic])\b
             captures:
                 1: { name: constant.numeric.id.spwn }
+                2: { name: storage.type.number.spwn }
+
+    uid-literal:
+        patterns:
+          - match: (?<![a-zA-Z_])(\?)([gbic])\b
+            captures:
+                1: { name: entity.name.type.spwn }
                 2: { name: storage.type.number.spwn }
 
     binary-literal:
