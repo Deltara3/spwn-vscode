@@ -1,0 +1,59 @@
+scopeName: source.spwn
+
+patterns:
+    - include: '#null'
+
+repository:
+    function-call:
+        patterns:
+          - name: entity.name.function.spwn
+            match: \b[a-zA-Z_]\w*(?=\s*\()
+
+    property-access:
+        patterns:
+          - include: '#type-property'
+          - include: '#overloads'
+          - include: '#method-call'
+          - include: '#generic-property'
+
+    namespace-access:
+        patterns:
+          - include: '#namespace-segment'
+          - include: '#namespace-call'
+          - include: '#namespace-member'
+
+    type-property:
+        patterns:
+          - name: storage.type.spwn
+            match: (?<=\.)(?<!\.{2})\btype\b
+
+    method-call:
+        patterns:
+          - name: entity.name.function.spwn
+            match: (?<=\.)(?<!\.{2})[a-zA-Z_]\w*(?=\s*\()
+
+    generic-property:
+        patterns:
+          - name: variable.property.spwn
+            match: (?<=\.)(?<!\.{2})[a-zA-Z_]\w*
+
+    namespace-segment:
+        patterns:
+          - match: (::)([a-zA-Z_]\w*)(?=::)
+            captures:
+                1: { name: punctuation.accessor.namespace.spwn }
+                2: { name: entity.name.namespace.spwn }
+
+    namespace-call:
+        patterns:
+          - match: (::)([a-zA-Z_]\w*)(?=\s*\()
+            captures:
+                1: { name: punctuation.accessor.namespace.spwn }
+                2: { name: entity.name.function.spwn }
+
+    namespace-member:
+        patterns:
+          - match: (::)([a-zA-Z_]\w*)
+            captures:
+                1: { name: punctuation.accessor.namespace.spwn }
+                2: { name: variable.property.spwn }

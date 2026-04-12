@@ -16,7 +16,7 @@ repository:
             match: '(?<!\.)\.(?!\.)'
 
           - name: punctuation.accessor.namespace.spwn
-            match: ':(?!:)'
+            match: '::'
 
           - name: punctuation.separator.key-value.spwn
             match: ':'
