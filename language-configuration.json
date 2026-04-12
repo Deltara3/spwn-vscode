@@ -23,19 +23,35 @@
         ["\"", "\""],
         ["r\"", "\""],
         ["u\"", "\""],
+        ["b\"", "\""],
         ["64\"", "\""],
         ["'", "'"],
+        ["r'", "'"],
+        ["u'", "'"],
+        ["b'", "'"],
+        ["64'", "'"],
         ["\\u{", "}"]
     ],
     // symbols that can be used to surround a selection
     "surroundingPairs": [
+        // vsc doesn't support multi-char pairs here
+        // this is left here for the future
         ["{", "}"],
         ["!{", "}"],
         ["[", "]"],
         ["#[", "]"],
         ["(", ")"],
         ["\"", "\""],
-        ["'", "'"]
+        ["r\"", "\""],
+        ["u\"", "\""],
+        ["b\"", "\""],
+        ["64\"", "\""],
+        ["'", "'"],
+        ["r'", "'"],
+        ["u'", "'"],
+        ["b'", "'"],
+        ["64'", "'"],
+        ["\\u{", "}"]
     ],
     // shamelessly taken from the original extension
     "indentationRules": {

@@ -6,15 +6,20 @@ patterns:
 repository:
     literals:
         patterns:
+          - include: '#raw-literal'
+          - include: '#unindent-literal'
+          - include: '#base64-literal'
           - include: '#string-literal'
           - include: '#id-literal'
-          - include: '#number-literal'
+          - include: '#binary-literal'
+          - include: '#octal-literal'
+          - include: '#hexadecimal-literal'
+          - include: '#decimal-literal'
 
-    string-literal:
+    raw-literal:
         patterns:
-            # Prefixed
-          - name: string.quoted.spwn
-            begin: \b(r|u|64)(['"])
+          - name: string.quoted.raw.spwn
+            begin: \b(r)(['"])
             beginCaptures:
                 1: { name: storage.type.string.spwn }
                 2: { name: punctuation.definition.string.begin.spwn }
@@ -23,6 +28,35 @@ repository:
                 1: { name: punctuation.definition.string.end.spwn }
                 2: { name: invalid.illegal.unclosed-string.spwn }
 
+    unindent-literal:
+        patterns:
+          - name: string.quoted.unindent.spwn
+            begin: \b(u)(['"])
+            beginCaptures:
+                1: { name: storage.type.string.spwn }
+                2: { name: punctuation.definition.string.begin.spwn }
+            end: \2
+            endCaptures:
+                0: { name: punctuation.definition.string.end.spwn }
+            patterns:
+              - include: '#escape-sequences'
+
+    base64-literal:
+        patterns:
+          - name: string.quoted.base64.spwn
+            begin: \b(64)(['"])
+            beginCaptures:
+                1: { name: storage.type.string.spwn }
+                2: { name: punctuation.definition.string.begin.spwn }
+            end: (\2)|(\n)
+            endCaptures:
+                1: { name: punctuation.definition.string.end.spwn }
+                2: { name: invalid.illegal.unclosed-string.spwn }
+            patterns:
+              - include: '#escape-sequences'
+
+    string-literal:
+        patterns:
           - name: string.quoted.spwn
             begin: (['"])
             beginCaptures:
@@ -31,6 +65,8 @@ repository:
             endCaptures:
                 1: { name: punctuation.definition.string.end.spwn }
                 2: { name: invalid.illegal.unclosed-string.spwn }
+            patterns:
+              - include: '#escape-sequences'
 
     escape-sequences:
         patterns:
@@ -49,26 +85,28 @@ repository:
                 1: { name: constant.numeric.id.spwn }
                 2: { name: storage.type.number.spwn }
 
-    number-literal:
+    binary-literal:
         patterns:
-            # Binary
           - match: \b(0b)([01][01_]*)\b
             captures:
                 1: { name: storage.type.number.spwn }
                 2: { name: constant.numeric.bin.spwn }
 
-            # Octal
+    octal-literal:
+        patterns:
           - match: \b(0o)([0-7][0-7_]*)\b
             captures:
                 1: { name: storage.type.number.spwn }
                 2: { name: constant.numeric.oct.spwn }
 
-            # Hexadecimal
+    hexadecimal-literal:
+        patterns:
           - match: \b(0x)([0-9a-fA-F][0-9a-fA-F_]*)\b
             captures:
                 1: { name: storage.type.number.spwn }
                 2: { name: constant.numeric.hex.spwn }
 
-            # Decimal
+    decimal-literal:
+        patterns:
           - match: \b(\d[\d_]*)\b
             name: constant.numeric.dec.spwn

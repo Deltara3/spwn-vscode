@@ -22,7 +22,7 @@ repository:
           - include: '#keywords'
           - include: '#type-identifier'
           - include: '#property-access'
-          - include: '#function-call'
+          - include: '#standalone-call'
           - include: '#namespace-access'
           - include: '#punctuation'
           - include: '#brackets'

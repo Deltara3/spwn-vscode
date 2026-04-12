@@ -28,7 +28,7 @@ repository:
 
     standard-block:
         patterns:
-          - begin: \}
+          - begin: \{
             beginCaptures:
                 0: { name: punctuation.other.bracket.curly.begin.spwn }
             end: \}

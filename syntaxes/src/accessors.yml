@@ -4,7 +4,7 @@ patterns:
     - include: '#null'
 
 repository:
-    function-call:
+    standalone-call:
         patterns:
           - name: entity.name.function.spwn
             match: \b[a-zA-Z_]\w*(?=\s*\()
