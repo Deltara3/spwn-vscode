@@ -44,11 +44,24 @@ repository:
                 endCaptures:
                     0: { name: punctuation.other.bracket.curly.end.spwn }
                 patterns:
+                  - begin: ([a-zA-Z_]\w*)\s*(:)(?!:)(?=\s*!\{)
+                    beginCaptures:
+                        1:
+                            patterns:
+                              - name: entity.name.function.macro.spwn
+                                match: '[a-zA-Z_]\w*'
+                        2: { name: punctuation.separator.key-value.spwn }
+                    end: ",|(?=\\})"
+                    endCaptures:
+                        0: { name: punctuation.separator.spwn }
+
+                    patterns:
+                      - include: '#root'
+
                   - begin: ([a-zA-Z_]\w*)\s*(:)(?!:)(?=\s*\()
                     beginCaptures:
                         1:
                             patterns:
-                              # Have yet to figure out 
                               - include: '#overloads'
 
                               - name: entity.name.function.spwn

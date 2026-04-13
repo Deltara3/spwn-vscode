@@ -4,38 +4,55 @@ patterns:
     - include: '#null'
 
 repository:
-    standalone-call:
+    calls:
+        patterns:
+          - include: '#standalone-trigger'
+          - include: '#standalone-function'
+
+    standalone-trigger:
+        patterns:
+          - name: entity.name.function.macro.spwn
+            match: \b[a-zA-Z_]\w*!
+
+    standalone-function:
         patterns:
           - name: entity.name.function.spwn
             match: \b[a-zA-Z_]\w*(?=\s*\()
 
     property-access:
         patterns:
-          - include: '#type-property'
+          - include: '#property-type'
           - include: '#overloads'
-          - include: '#method-call'
-          - include: '#generic-property'
+          - include: '#property-trigger'
+          - include: '#property-method'
+          - include: '#property-generic'
 
-    namespace-access:
-        patterns:
-          - include: '#namespace-segment'
-          - include: '#namespace-call'
-          - include: '#namespace-member'
-
-    type-property:
+    property-type:
         patterns:
           - name: storage.type.spwn
             match: (?<=\.)(?<!\.{2})\btype\b
 
-    method-call:
+    property-trigger:
+        patterns:
+          - name: entity.name.function.macro.spwn
+            match: (?<=\.)(?<!\.{2})[a-zA-Z_]\w*!
+
+    property-method:
         patterns:
           - name: entity.name.function.spwn
             match: (?<=\.)(?<!\.{2})[a-zA-Z_]\w*(?=\s*\()
 
-    generic-property:
+    property-generic:
         patterns:
           - name: variable.property.spwn
             match: (?<=\.)(?<!\.{2})[a-zA-Z_]\w*
+
+    namespace-access:
+        patterns:
+          - include: '#namespace-segment'
+          - include: '#namespace-trigger'
+          - include: '#namespace-method'
+          - include: '#namespace-member'
 
     namespace-segment:
         patterns:
@@ -44,7 +61,14 @@ repository:
                 1: { name: punctuation.accessor.namespace.spwn }
                 2: { name: entity.name.namespace.spwn }
 
-    namespace-call:
+    namespace-trigger:
+        patterns:
+          - match: (::)([a-zA-Z_]\w*!)
+            captures:
+                1: { name: punctuation.accessor.namespace.spwn }
+                2: { name: entity.name.function.macro.spwn }
+
+    namespace-method:
         patterns:
           - match: (::)([a-zA-Z_]\w*)(?=\s*\()
             captures:

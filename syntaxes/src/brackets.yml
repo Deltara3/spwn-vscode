@@ -38,6 +38,16 @@ repository:
               - begin: (?=\s*\w+\s*:(?!:)|\.{2})
                 end: (?=\})
                 patterns:
+                  - begin: ([a-zA-Z_]\w*)\s*(:)(?!:)(?=\s*!\{)
+                    beginCaptures:
+                        1: { name: entity.name.function.macro.spwn }
+                        2: { name: punctuation.separator.key-value.spwn }
+                    end: ',|(?=\})'
+                    endCaptures:
+                        0: { name: punctuation.separator.spwn }
+                    patterns:
+                    - include: '#root'        
+
                   - begin: ([a-zA-Z_]\w*)\s*(:)(?!:)(?=\s*\()
                     beginCaptures:
                         1: { name: entity.name.function.spwn }
