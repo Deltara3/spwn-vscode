@@ -37,8 +37,6 @@ repository:
           - name: keyword.operator.range.spwn
             match: \.\.
 
-    
-
     increment-operator:
         patterns:
           - name: keyword.operator.increment.spwn

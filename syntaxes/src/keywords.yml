@@ -130,7 +130,7 @@ repository:
     pseudo-op-keywords:
         patterns:
           - name: keyword.operator.logical.spwn
-            match: \bin\b
+            match: \b(in|is)\b
 
     reserved-keywords:
         patterns:
