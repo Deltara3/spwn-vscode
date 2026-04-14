@@ -14,6 +14,7 @@ repository:
           - include: '#exception-keywords'
           - include: '#type-keywords'
           - include: '#library-keywords'
+          - include: '#other-keywords'
           - include: '#reserved-keywords'
 
     impl-block:
@@ -58,7 +59,7 @@ repository:
     control-keywords:
         patterns:
           - name: keyword.control.spwn
-            match: \b(let|if|else|while|for|break|continue|match|return|in|is)\b
+            match: \b(let|if|else|while|for|break|continue|match|return)\b
 
     exception-keywords:
         patterns:
@@ -74,6 +75,11 @@ repository:
         patterns:
           - name: keyword.control.import.spwn
             match: \b(import|extract)\b
+
+    other-keywords:
+        patterns:
+          - name: keyword.other.spwn
+            match: \b(as|in|is)
 
     reserved-keywords:
         patterns:
