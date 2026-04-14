@@ -51,6 +51,12 @@ repository:
             patterns:
             - include: '#root'        
 
+          - begin: \b(else)\s*(:)(?!:)
+            beginCaptures:
+                1: { name: keyword.control.spwn }
+                2: { name: punctuation.separator.key-value.spwn }
+            end: ',|(?\})|(?=;)'
+            
           - begin: ([a-zA-Z_]\w*)\s*(:)(?!:)(?=\s*\()
             beginCaptures:
                 1:

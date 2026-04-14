@@ -15,6 +15,9 @@ Feel free to create an issue with inaccuracies, bugs or missing syntax.
 
 ## Release Notes
 
+## 0.1.6
+- Fixed `else` not highlighting in `match` statements.
+
 ## 0.1.5
 - Fixed the grammar treating some properties, members, or variables as keywords.
 
