@@ -15,6 +15,9 @@ Feel free to create an issue with inaccuracies, bugs or missing syntax.
 
 ## Release Notes
 
+## 0.1.7
+- Fixed the grammar highlighting what was clearly not macros, as macros.
+
 ## 0.1.6
 - Fixed `else` not highlighting in `match` statements.
 
