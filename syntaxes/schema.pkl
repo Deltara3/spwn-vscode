@@ -8,8 +8,8 @@ repository: Mapping<String, Pattern>?
 abstract class Pattern
 
 abstract class Named extends Pattern {
-    fixed scope: String?
-    name: String? = if (scope == null) null else "\(scope).spwn"
+    hidden scope: String?
+    name: String? = scope.ifNonNull((s) -> "\(s).spwn")
 }
 
 class Match extends Named {
