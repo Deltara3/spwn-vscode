@@ -1,0 +1,14 @@
+amends "schema.pkl"
+
+name = "SPWN"
+scopeName = "source.spwn"
+
+patterns = new Listing {
+    new Include { include = "#root" }
+}
+
+repository = new Mapping {
+    ["root"] = new Group {
+        
+    }
+}

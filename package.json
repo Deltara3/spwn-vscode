@@ -3,7 +3,7 @@
     "publisher": "deltara",
     "displayName": "SPWN Language",
     "description": "Syntax highlighting for SPWN",
-    "version": "0.1.9",
+    "version": "0.2.0",
     "engines": {
         "vscode": "^1.49.0"
     },
@@ -37,10 +37,7 @@
         ]
     },
     "scripts": {
-        "build-grammar": "node build.js",
+        "build-grammar": "pkl eval ./syntaxes/main.pkl -f json > ./syntaxes/spwn.tmLanguage.json",
         "vscode:prepublish": "npm run build-grammar"
-    },
-    "devDependencies": {
-        "js-yaml": "^4.1.1"
     }
 }

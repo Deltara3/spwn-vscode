@@ -15,6 +15,9 @@ Feel free to create an issue with inaccuracies, bugs or missing syntax.
 
 ## Release Notes
 
+## 0.2.0
+- Total rewrite in Pkl, hopefully easier to work with.
+
 ## 0.1.9
 - Fixed the grammar highlighting some function calls as keywords.
 

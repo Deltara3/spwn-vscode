@@ -4,6 +4,9 @@ All notable changes to the "spwn-language" extension will be documented in this 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## 0.2.0
+- Total rewrite in Pkl, hopefully easier to work with.
+
 ## 0.1.9
 - Fixed the grammar highlighting some function calls as keywords.
 

@@ -1,0 +1,43 @@
+open module schema
+
+name: String?
+scopeName: String?
+patterns: Listing<Pattern>?
+repository: Mapping<String, Pattern>?
+
+abstract class Pattern
+
+abstract class Named extends Pattern {
+    name: String?
+}
+
+class Match extends Named {
+    @SourceCode { language = "RegExp" }
+    match: String(isRegex) = ""
+    captures: Mapping<String, Capture>?
+}
+
+class Span extends Named {
+    @SourceCode { language = "RegExp" }
+    begin: String(isRegex)
+    beginCaptures: Mapping<String, Capture>?
+
+    @SourceCode { language = "RegExp" }
+    end: String(isRegex)
+    endCaptures: Mapping<String, Capture>?
+
+    patterns: Listing<Pattern>?
+}
+
+class Group extends Named {
+    patterns: Listing<Pattern>
+}
+
+class Include extends Pattern {
+    include: String
+}
+
+class Capture {
+    name: String?
+    patterns: Listing<Pattern>?
+}
