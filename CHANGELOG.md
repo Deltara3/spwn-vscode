@@ -4,6 +4,9 @@ All notable changes to the "spwn-language" extension will be documented in this 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## 0.1.9
+- Fixed the grammar highlighting some function calls as keywords.
+
 ## 0.1.8
 - Fixed legacy keyword `has` still being under `keyword.operator.logical`.
 

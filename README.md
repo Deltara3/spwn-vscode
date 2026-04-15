@@ -15,6 +15,9 @@ Feel free to create an issue with inaccuracies, bugs or missing syntax.
 
 ## Release Notes
 
+## 0.1.9
+- Fixed the grammar highlighting some function calls as keywords.
+
 ## 0.1.8
 - Fixed legacy keyword `has` still being under `keyword.operator.logical`.
 
