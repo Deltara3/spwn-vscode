@@ -4,11 +4,16 @@ open module schema
 
 name: String?
 scopeName: String?
-patterns: Listing<Pattern>?
-repository: Mapping<String, Pattern>?
+patterns: PatternList?
+repository: PatternMap?
 
 /// Base class for all TextMate patterns.
 abstract class Pattern
+
+// Internal aliases.
+typealias PatternList = Listing<Pattern>
+typealias PatternMap = Mapping<String, Pattern>
+typealias CaptureMap = Mapping<String, Capture>
 
 /// A pattern with an optional scope applied.
 abstract class Named extends Pattern {
@@ -26,9 +31,8 @@ class Match extends Named {
     match: String(isRegex) = ""
 
     /// Captures indexed by group.
-    captures: Mapping<String, Capture>?
+    captures: CaptureMap?
 }
-
 
 /// Matches a range between two regex patterns.
 class Span extends Named {
@@ -37,23 +41,23 @@ class Span extends Named {
     begin: String(isRegex)
 
     /// Captures for the [begin] regex, indexed by group.
-    beginCaptures: Mapping<String, Capture>?
+    beginCaptures: CaptureMap?
 
     /// Regex marking the end of the span.
     @SourceCode { language = "RegExp" }
     end: String(isRegex)
 
     /// Captures for the [end] regex, indexed by group.
-    endCaptures: Mapping<String, Capture>?
+    endCaptures: CaptureMap?
 
     /// TextMate patterns to match within the span.
-    patterns: Listing<Pattern>?
+    patterns: PatternList?
 }
 
 /// Groups patterns under a common name.
 class Group extends Named {
     /// Patterns in this group.
-    patterns: Listing<Pattern>
+    patterns: PatternList
 }
 
 /// References another rule in the repository.
@@ -65,5 +69,5 @@ class Include extends Pattern {
 /// Captured group in a [Match] or [Span].
 class Capture extends Named {
     /// Patterns to apply within the capture.
-    patterns: Listing<Pattern>?
+    patterns: PatternList?
 }

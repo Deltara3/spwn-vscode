@@ -1,14 +1,15 @@
 amends "schema.pkl"
+import "bindings.pkl" as w
 
 name = "SPWN"
 scopeName = "source.spwn"
 
-patterns = new Listing {
-    new Include { include = "#root" }
+patterns {
+    w.include("root")
 }
 
-repository = new Mapping {
-    ["root"] = new Group {
-        
-    }
+repository {
+    ["root"] = w.group(new Listing {
+
+    })
 }

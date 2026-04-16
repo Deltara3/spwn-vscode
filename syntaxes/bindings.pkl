@@ -1,0 +1,70 @@
+extends "schema.pkl"
+
+/// A regex boundary with its captures.
+typealias Boundary = Pair<String(isRegex), CaptureMap>
+
+/// Creates a new [Include] pattern.
+/// - [rule]: The name of the rule to reference.
+function include(rule: String) = new Include {
+    include = "#\(rule)"
+}
+
+/// Creates a new [Group] of patterns.
+/// - [list]: The patterns to include.
+function group(list: PatternList) = new Group {
+    patterns = list
+}
+
+/// Creates a new [Capture].
+/// - [tag]: TextMate scope to use, without the language suffix.
+function capture(tag: String) = new Capture {
+    scope = tag
+}
+
+/// Creates a new [Capture] with patterns.
+/// - [tag]: TextMate scope to use, without the language suffix.
+/// - [pats]: Pattern list to include in this pattern.
+function captureEx(tag: String, pats: PatternList) = new Capture {
+    scope = tag
+    patterns = pats
+}
+
+/// Creates a new [Match] pattern.
+/// - [tag]: TextMate scope to use, without the language suffix.
+/// - [regex]: Regex to match against.
+function match(tag: String, regex: String(isRegex)) = new Match {
+    scope = tag
+    match = regex
+}
+
+/// Creates a new [Match] pattern with captures.
+/// - [tag]: TextMate scope to use, without the language suffix.
+/// - [regex]: Regex to match against.
+/// - [caps]: Captures map to include in this pattern.
+function matchEx(tag: String, regex: String(isRegex), caps: CaptureMap) = new Match {
+    scope = tag
+    match = regex
+    captures = caps
+}
+
+/// Creates a new [Span] pattern.
+/// - [start]: Regex and captures marking the start of the span.
+/// - [stop]: Regex and captures marking the end of the span.
+function span(start: Boundary, stop: Boundary) = new Span {
+    begin = start.first
+    beginCaptures = start.second
+    end = stop.first
+    endCaptures = stop.second
+}
+
+/// Creates a new [Span] pattern with patterns.
+/// - [start]: Regex and captures marking the start of the span.
+/// - [stop]: Regex and captures marking the end of the span.
+/// - [pats]: Pattern list to include in this pattern.
+function spanEx(start: Boundary, stop: Boundary, pats: PatternList) = new Span {
+    begin = start.first
+    beginCaptures = start.second
+    end = stop.first
+    endCaptures = stop.second
+    patterns = pats
+}
