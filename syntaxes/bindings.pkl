@@ -24,7 +24,7 @@ function capture(tag: String) = new Capture {
 /// Creates a new [Capture] with patterns.
 /// - [tag]: TextMate scope to use, without the language suffix.
 /// - [pats]: Pattern list to include in this pattern.
-function captureEx(tag: String, pats: PatternList) = new Capture {
+function captureEx(tag: String, pats: PatternList?) = new Capture {
     scope = tag
     patterns = pats
 }
@@ -41,7 +41,7 @@ function match(tag: String, regex: String(isRegex)) = new Match {
 /// - [tag]: TextMate scope to use, without the language suffix.
 /// - [regex]: Regex to match against.
 /// - [caps]: Captures map to include in this pattern.
-function matchEx(tag: String, regex: String(isRegex), caps: CaptureMap) = new Match {
+function matchEx(tag: String, regex: String(isRegex), caps: CaptureMap?) = new Match {
     scope = tag
     match = regex
     captures = caps
@@ -61,7 +61,7 @@ function span(start: Boundary, stop: Boundary) = new Span {
 /// - [start]: Regex and captures marking the start of the span.
 /// - [stop]: Regex and captures marking the end of the span.
 /// - [pats]: Pattern list to include in this pattern.
-function spanEx(start: Boundary, stop: Boundary, pats: PatternList) = new Span {
+function spanEx(start: Boundary, stop: Boundary, pats: PatternList?) = new Span {
     begin = start.first
     beginCaptures = start.second
     end = stop.first
